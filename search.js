@@ -42,22 +42,34 @@ async function displayResults(rows) {
   tbody.innerHTML = "";
 
   // 🔥 FETCH ALL EXISTING KEYS ONCE (FAST)
-  const { data: existingItems, error } = await supabaseClient
-.from("svr_list_database")
-.select("unique_key")
-.limit(10000);
+// 🔥 FETCH ALL KEYS USING PAGINATION (FIXES MISSING DATA ISSUE)
+let allKeys = [];
+let from = 0;
+const pageSize = 1000;
+
+while (true) {
+  const { data, error } = await supabaseClient
+    .from("svr_list_database")
+    .select("unique_key")
+    .range(from, from + pageSize - 1);
 
   if (error) {
-    console.log("Existing fetch error:", error);
+    console.log("Fetch error:", error);
     return;
   }
 
-  // 🔥 CREATE FAST LOOKUP SET
-  const existingKeySet = new Set(
-    existingItems
-      .map(item => item.unique_key)
-      .filter(k => k !== null && k !== undefined)
-  );
+  if (!data || data.length === 0) break;
+
+  allKeys = allKeys.concat(data);
+  from += pageSize;
+}
+
+// 🔥 CREATE LOOKUP SET
+const existingKeySet = new Set(
+  allKeys
+    .map(item => item.unique_key)
+    .filter(k => k !== null && k !== undefined)
+);
 
   // 🔥 LOOP THROUGH SEARCH RESULTS
   for (const row of rows) {
