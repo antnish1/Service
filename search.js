@@ -54,7 +54,7 @@ async function displayResults(rows) {
     return;
   }
 
-  const existingKeys = existingItems.map(item => item.unique_key);
+  const existingKeys = existingItems.map(item => String(item.unique_key));
 
   rows.forEach(row => {
     const tr = document.createElement("tr");
@@ -77,7 +77,7 @@ async function displayResults(rows) {
     `;
 
     // 🔥 CHECK IF ALREADY ADDED
-    const isAlreadyAdded = existingKeys.includes(row.unique_key);
+    const isAlreadyAdded = existingKeys.includes(String(row.unique_key));
 
     if (isAlreadyAdded) {
       // 🔴 FADED + PINK
@@ -127,7 +127,7 @@ const { data: existing } = await supabaseClient
   .from("svr_list_database")
   .select("id")
   .eq("ListId", listId)
-  .eq("unique_key", row.unique_key);
+  .eq("unique_key", String(row.unique_key));
 
 if (existing.length > 0) {
   alert("Already added to list");
