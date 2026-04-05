@@ -103,8 +103,7 @@ async function addToSVRList(row, trElement) {
   const SUPABASE_URL = "https://gmutgbdldiqbwomtdepi.supabase.co";
   const SUPABASE_KEY = "sb_publishable_e-gFkBqs2qG2bSs1iBJPrQ_m3PZf5lN";
 
-  const { createClient } = window.supabase;
-  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+
 
   const listId = localStorage.getItem("currentListId");
 
@@ -167,7 +166,7 @@ if (existing.length > 0) {
 deputation_time: formatTime(row.deputation_time),
 engineer_onsite_time: formatTime(row.engineer_onsite_time),
 work_completion_time: formatTime(row.work_completion_time),
-    work_completion_time: row.work_completion_time || null,
+
     labour_charge: row.labour_charge || 0,
     distance: row.distance || 0,
     da_applied: row.da_applied,
