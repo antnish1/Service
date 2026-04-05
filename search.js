@@ -8,6 +8,12 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 const branch = localStorage.getItem("selectedBranch");
 document.getElementById("branchTitle").innerText = branch;
 
+
+const listId = localStorage.getItem("currentListId");
+const status = localStorage.getItem("currentStatus");
+
+document.getElementById("listInfo").innerText = `List ID: ${listId} | Status: ${status}`;
+
 const user = JSON.parse(localStorage.getItem("user"));
 document.getElementById("usernameDisplay").innerText = "👤 " + user.name;
 
