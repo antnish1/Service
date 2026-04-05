@@ -87,7 +87,7 @@ const { data: existing } = await supabaseClient
   .from("svr_list_database")
   .select("id")
   .eq("ListId", listId)
-  .eq("machine_no", row.machine_no);
+  .eq("unique_key", row.unique_key);
 
 if (existing.length > 0) {
   alert("Already added to list");
