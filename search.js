@@ -120,18 +120,25 @@ if (!svrNumber || svrNumber.trim() === "") {
 }
   
 
-if (!row.unique_key) {
-  alert("Invalid data: unique_key missing");
-  return;
-}
 
 
   
+const cleanKey = row.unique_key ? String(row.unique_key).trim() : null;
+
+if (!cleanKey) {
+  alert("Invalid unique_key");
+  return;
+}
+
 const { data: existing } = await supabaseClient
   .from("svr_list_database")
   .select("id")
+  .eq("unique_key", cleanKey);
 
-const cleanKey = row.unique_key ? String(row.unique_key).trim() : null;
+if (existing.length > 0) {
+  alert("Already added to list");
+  return;
+}
 
 if (!cleanKey) {
   alert("Invalid unique_key");
