@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>List Details</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<div class="main">
+
+  <!-- HEADER -->
+  <div class="topbar">
+    <div>
+      <strong id="listTitle"></strong>
+    </div>
+
+    <div>
+      <button onclick="goBack()">⬅ Back</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table">
+    <table id="detailsTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Engineer</th>
+          <th>Call Type</th>
+          <th>Complaint</th>
+          <th>Customer</th>
+          <th>Machine</th>
+          <th>HMR</th>
+          <th>Status</th>
+          <th>Labour</th>
+          <th>Distance</th>
+          <th>Total TA/DA</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="list-details.js"></script>
+
+</body>
+</html>
