@@ -146,6 +146,7 @@ if (existing.length > 0) {
   {
     "ListId": listId,
 "SVRnummber": svrNumber,
+    "ListCreationDate": new Date().toISOString().split('T')[0],
     unique_key: row.unique_key,
     call_id: row.call_id,
     location: row.location,
