@@ -53,7 +53,10 @@ const { data: existingItems, error } = await supabaseClient
     return;
   }
 
-  const existingKeys = existingItems.map(item => String(item.unique_key));
+ const existingKeys = existingItems
+  .map(item => item.unique_key)
+  .filter(k => k !== null && k !== undefined)
+  .map(k => String(k).trim());
 
   rows.forEach(row => {
     const tr = document.createElement("tr");
