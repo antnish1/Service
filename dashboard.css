@@ -134,3 +134,30 @@ body {
   background: #f8d7da;
   color: #721c24;
 }
+
+
+
+
+.branch-section {
+  margin: 20px 0;
+}
+
+.branch-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.branch-list button {
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #4f6f64;
+  color: white;
+  cursor: pointer;
+}
+
+.branch-list button:hover {
+  background: #3d5a50;
+}
