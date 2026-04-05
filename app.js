@@ -7,10 +7,9 @@ const SUPABASE_KEY = "sb_publishable_e-gFkBqs2qG2bSs1iBJPrQ_m3PZf5lN";
 const { createClient } = window.supabase;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const form = document.getElementById("loginForm");
-const errorMsg = document.getElementById("errorMsg");
 
-// Load users into dropdown
+
+// 🔥 LOAD USERS INTO DROPDOWN
 async function loadUsers() {
   const { data, error } = await supabaseClient
     .from("users")
@@ -31,8 +30,14 @@ async function loadUsers() {
   });
 }
 
-// Call function on page load
+// CALL FUNCTION
 loadUsers();
+
+
+const form = document.getElementById("loginForm");
+const errorMsg = document.getElementById("errorMsg");
+
+
 
 
 form.addEventListener("submit", async (e) => {
