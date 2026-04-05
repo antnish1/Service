@@ -8,7 +8,7 @@ const listId = localStorage.getItem("openListId");
 
 // SET TITLE
 document.getElementById("listTitle").innerText = "List: " + listId;
-
+console.log("OPEN LIST ID:", listId);
 // LOAD DATA
 async function loadListDetails() {
 
