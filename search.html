@@ -3,51 +3,96 @@
 <head>
   <title>Search Machine</title>
   <link rel="stylesheet" href="dashboard.css">
+
+  <style>
+    body {
+      background: #f5f7f9;
+      font-size: 14px;
+    }
+
+    .search-container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .search-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+    }
+
+    .search-bar button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #4f6f64;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .search-bar button:hover {
+      background: #3d5a50;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin-bottom: 15px;
+      color: #444;
+    }
+
+    table th {
+      font-size: 13px;
+    }
+
+    table td {
+      font-size: 13px;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="dashboard">
+<div class="main search-container">
 
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <h2>TA DA</h2>
+  <h3 id="branchTitle"></h3>
+
+  <div class="search-bar">
+    <input id="machineInput" placeholder="Enter Machine Number">
+    <button onclick="searchMachine()">Search</button>
   </div>
 
-  <!-- MAIN -->
-  <div class="main">
-
-    <div class="topbar">
-      <input id="machineInput" placeholder="Enter Machine Number">
-      <button onclick="searchMachine()">Search</button>
-    </div>
-
-    <h3 id="branchTitle"></h3>
-
-    <div class="table">
-      <table id="resultTable">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Location</th>
-            <th>Engineer</th>
-            <th>Workshop/Onsite</th>
-            <th>Call Type</th>
-            <th>Complaint</th>
-            <th>Customer</th>
-            <th>Machine No</th>
-            <th>HMR</th>
-            <th>Status</th>
-            <th>Site</th>
-            <th>Call ID</th>
-            <th>Labour</th>
-            <th>Distance</th>
-            <th>Total TA/DA</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
+  <div class="table">
+    <table id="resultTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Engineer</th>
+          <th>Workshop/Onsite</th>
+          <th>Call Type</th>
+          <th>Complaint</th>
+          <th>Customer</th>
+          <th>Machine No</th>
+          <th>HMR</th>
+          <th>Status</th>
+          <th>Site</th>
+          <th>Call ID</th>
+          <th>Labour</th>
+          <th>Distance</th>
+          <th>Total TA/DA</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
 
 </div>
