@@ -41,24 +41,26 @@ async function displayResults(rows) {
   const tbody = document.querySelector("#resultTable tbody");
   tbody.innerHTML = "";
 
-  const listId = localStorage.getItem("currentListId");
-
-  // 🔥 GET EXISTING ROWS FOR THIS LIST
-const { data: existingItems, error } = await supabaseClient
-  .from("svr_list_database")
-  .select("unique_key");
+  // 🔥 FETCH ALL EXISTING KEYS ONCE (FAST)
+  const { data: existingItems, error } = await supabaseClient
+    .from("svr_list_database")
+    .select("unique_key");
 
   if (error) {
     console.log("Existing fetch error:", error);
     return;
   }
 
- const existingKeys = existingItems
-  .map(item => item.unique_key)
-  .filter(k => k !== null && k !== undefined)
-.map(k => k);
+  // 🔥 CREATE FAST LOOKUP SET
+  const existingKeySet = new Set(
+    existingItems
+      .map(item => item.unique_key)
+      .filter(k => k !== null && k !== undefined)
+  );
 
-  rows.forEach(row => {
+  // 🔥 LOOP THROUGH SEARCH RESULTS
+  for (const row of rows) {
+
     const tr = document.createElement("tr");
 
     tr.innerHTML = `
@@ -78,10 +80,8 @@ const { data: existingItems, error } = await supabaseClient
       <td>${row.total_tada || ""}</td>
     `;
 
-    // 🔥 CHECK IF ALREADY ADDED
-const currentKey = row.unique_key;
-
-const isAlreadyAdded = existingKeys.some(k => k === row.unique_key);
+    // 🔥 DIRECT MATCH USING SET (VERY FAST + RELIABLE)
+    const isAlreadyAdded = existingKeySet.has(row.unique_key);
 
     if (isAlreadyAdded) {
       // 🔴 FADED + PINK
@@ -99,7 +99,7 @@ const isAlreadyAdded = existingKeys.some(k => k === row.unique_key);
     }
 
     tbody.appendChild(tr);
-  });
+  }
 }
 
 async function addToSVRList(row, trElement) {
