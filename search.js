@@ -8,6 +8,10 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 const branch = localStorage.getItem("selectedBranch");
 document.getElementById("branchTitle").innerText = branch;
 
+const user = JSON.parse(localStorage.getItem("user"));
+document.getElementById("usernameDisplay").innerText = "👤 " + user.name;
+
+
 // 🔥 THIS WAS MISSING (MAIN FUNCTION)
 async function searchMachine() {
   const machineNo = document.getElementById("machineInput").value;
