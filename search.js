@@ -54,3 +54,11 @@ function displayResults(rows) {
     tbody.appendChild(tr);
   });
 }
+
+
+// 🔥 ENTER KEY SEARCH
+document.getElementById("machineInput").addEventListener("keypress", function(e) {
+  if (e.key === "Enter") {
+    searchMachine();
+  }
+});
