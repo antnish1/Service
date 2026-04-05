@@ -102,43 +102,43 @@ if (existing.length > 0) {
   // 🔥 INSERT INTO NEW TABLE
   const { error } = await supabaseClient
     .from("svr_list_database")
-    .insert([
-      {
-        ListId: listId,
+.insert([
+  {
+    "ListId": listId,
 
-        unique_key: row.unique_key,
-        call_id: row.call_id,
-        location: row.location,
-        engineer_name: row.engineer_name,
-        workshop_onsite: row.workshop_onsite,
-        call_type: row.call_type,
-        primary_secondary_engineer: row.primary_secondary_engineer,
-        complaint: row.complaint,
-        customer_name: row.customer_name,
-        contact_number: row.contact_number,
-        machine_no: row.machine_no,
-        hmr: row.hmr,
-        breakdown_status: row.breakdown_status,
-        mc_model: row.mc_model,
-        installation_date: row.installation_date,
-        site_location: row.site_location,
-        deputation_date: row.deputation_date,
-        deputation_time: row.deputation_time,
-        engineer_onsite_time: row.engineer_onsite_time,
-        work_completion_date: row.work_completion_date,
-        work_completion_time: row.work_completion_time,
-        labour_charge: row.labour_charge,
-        distance: row.distance,
-        da_applied: row.da_applied,
-        ta_amt_approved: row.ta_amt_approved,
-        da_amt_approved: row.da_amt_approved,
-        total_tada: row.total_tada,
-        date: row.date
-      }
-    ]);
+    unique_key: row.unique_key,
+    call_id: row.call_id,
+    location: row.location,
+    engineer_name: row.engineer_name,
+    workshop_onsite: row.workshop_onsite,
+    call_type: row.call_type,
+    primary_secondary_engineer: row.primary_secondary_engineer,
+    complaint: row.complaint,
+    customer_name: row.customer_name,
+    contact_number: row.contact_number,
+    machine_no: row.machine_no,
+    hmr: row.hmr,
+    breakdown_status: row.breakdown_status,
+    mc_model: row.mc_model,
+    installation_date: row.installation_date || null,
+    site_location: row.site_location,
+    deputation_date: row.deputation_date || null,
+    deputation_time: row.deputation_time || null,
+    engineer_onsite_time: row.engineer_onsite_time || null,
+    work_completion_date: row.work_completion_date || null,
+    work_completion_time: row.work_completion_time || null,
+    labour_charge: row.labour_charge || 0,
+    distance: row.distance || 0,
+    da_applied: row.da_applied,
+    ta_amt_approved: row.ta_amt_approved || 0,
+    da_amt_approved: row.da_amt_approved || 0,
+    total_tada: row.total_tada || 0,
+    date: row.date || null
+  }
+]);
 
   if (error) {
-    console.log("Insert error:", error);
+    console.log("Insert error FULL:", JSON.stringify(error, null, 2));
 
     // restore if failed
     trElement.style.opacity = "1";
