@@ -44,8 +44,7 @@ function displayResults(rows) {
     const tr = document.createElement("tr");
 
     tr.innerHTML = `
-     <td>${formatDate(row.date)}</td>
-   
+      <td>${formatDate(row.date)}</td>
       <td>${row.engineer_name || ""}</td>
       <td>${row.workshop_onsite || ""}</td>
       <td>${row.call_type || ""}</td>
@@ -61,8 +60,94 @@ function displayResults(rows) {
       <td>${row.total_tada || ""}</td>
     `;
 
+    // 🔥 CLICK EVENT
+    tr.style.cursor = "pointer";
+
+    tr.addEventListener("click", () => {
+      addToSVRList(row, tr);
+    });
+
     tbody.appendChild(tr);
   });
+}
+
+
+async function addToSVRList(row, trElement) {
+
+  const SUPABASE_URL = "https://gmutgbdldiqbwomtdepi.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_e-gFkBqs2qG2bSs1iBJPrQ_m3PZf5lN";
+
+  const { createClient } = window.supabase;
+  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const listId = localStorage.getItem("currentListId");
+
+
+const { data: existing } = await supabaseClient
+  .from("svr_list_database")
+  .select("id")
+  .eq("ListId", listId)
+  .eq("machine_no", row.machine_no);
+
+if (existing.length > 0) {
+  alert("Already added to list");
+  return;
+}
+  
+
+  // 🚫 PREVENT DOUBLE CLICK
+  trElement.style.opacity = "0.5";
+  trElement.style.pointerEvents = "none";
+
+  // 🔥 INSERT INTO NEW TABLE
+  const { error } = await supabaseClient
+    .from("svr_list_database")
+    .insert([
+      {
+        ListId: listId,
+
+        unique_key: row.unique_key,
+        call_id: row.call_id,
+        location: row.location,
+        engineer_name: row.engineer_name,
+        workshop_onsite: row.workshop_onsite,
+        call_type: row.call_type,
+        primary_secondary_engineer: row.primary_secondary_engineer,
+        complaint: row.complaint,
+        customer_name: row.customer_name,
+        contact_number: row.contact_number,
+        machine_no: row.machine_no,
+        hmr: row.hmr,
+        breakdown_status: row.breakdown_status,
+        mc_model: row.mc_model,
+        installation_date: row.installation_date,
+        site_location: row.site_location,
+        deputation_date: row.deputation_date,
+        deputation_time: row.deputation_time,
+        engineer_onsite_time: row.engineer_onsite_time,
+        work_completion_date: row.work_completion_date,
+        work_completion_time: row.work_completion_time,
+        labour_charge: row.labour_charge,
+        distance: row.distance,
+        da_applied: row.da_applied,
+        ta_amt_approved: row.ta_amt_approved,
+        da_amt_approved: row.da_amt_approved,
+        total_tada: row.total_tada,
+        date: row.date
+      }
+    ]);
+
+  if (error) {
+    console.log("Insert error:", error);
+
+    // restore if failed
+    trElement.style.opacity = "1";
+    trElement.style.pointerEvents = "auto";
+    return;
+  }
+
+  // ✅ SUCCESS UI
+  trElement.style.background = "#d4edda";
 }
 
 
