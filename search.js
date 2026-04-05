@@ -81,7 +81,7 @@ const { data: existingItems, error } = await supabaseClient
     // 🔥 CHECK IF ALREADY ADDED
 const currentKey = row.unique_key;
 
-const isAlreadyAdded = currentKey && existingKeys.includes(currentKey);
+const isAlreadyAdded = existingKeys.some(k => k === row.unique_key);
 
     if (isAlreadyAdded) {
       // 🔴 FADED + PINK
