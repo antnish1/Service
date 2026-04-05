@@ -12,10 +12,13 @@ console.log("OPEN LIST ID:", listId);
 // LOAD DATA
 async function loadListDetails() {
 
-  const { data, error } = await supabaseClient
-    .from("svr_list_database")
-    .select("*")
-    .eq("ListId", listId);
+const { data, error } = await supabaseClient
+  .from("svr_list_database")
+  .select("*")
+  .eq("ListId", listId);
+
+console.log("DATA:", data);
+console.log("ERROR:", error);
 
   if (error) {
     console.log(error);
