@@ -140,6 +140,14 @@ async function loadLists() {
   <td>${formatDate(row.created_at)}</td>
 `;
 
+tr.style.cursor = "pointer";
+
+tr.addEventListener("click", () => {
+  localStorage.setItem("openListId", row.ListId);
+  window.location.href = "list-details.html";
+});
+
+    
     tbody.appendChild(tr);
   });
 }
