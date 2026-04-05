@@ -79,7 +79,9 @@ const { data: existingItems, error } = await supabaseClient
     `;
 
     // 🔥 CHECK IF ALREADY ADDED
-    const isAlreadyAdded = existingKeys.includes(String(row.unique_key));
+const currentKey = row.unique_key ? String(row.unique_key).trim() : null;
+
+const isAlreadyAdded = currentKey && existingKeys.includes(currentKey);
 
     if (isAlreadyAdded) {
       // 🔴 FADED + PINK
@@ -129,7 +131,17 @@ const { data: existing } = await supabaseClient
   .from("svr_list_database")
   .select("id")
 
-  .eq("unique_key", String(row.unique_key));
+const cleanKey = row.unique_key ? String(row.unique_key).trim() : null;
+
+if (!cleanKey) {
+  alert("Invalid unique_key");
+  return;
+}
+
+const { data: existing } = await supabaseClient
+  .from("svr_list_database")
+  .select("id")
+  .eq("unique_key", cleanKey);
 
 if (existing.length > 0) {
   alert("Already added to list");
@@ -149,7 +161,7 @@ if (existing.length > 0) {
     "ListId": listId,
 "SVRnummber": svrNumber,
     "ListCreationDate": new Date().toISOString().split('T')[0],
-    unique_key: row.unique_key,
+unique_key: cleanKey,
     call_id: row.call_id,
     location: row.location,
     engineer_name: row.engineer_name,
