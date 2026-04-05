@@ -163,6 +163,40 @@ if (existing.length > 0) {
 
   // ✅ SUCCESS UI
   trElement.style.background = "#d4edda";
+
+// 🔥 UPDATE SVR LIST STATS
+
+// 1. GET COUNT + SUM
+const { data: stats, error: statsError } = await supabaseClient
+  .from("svr_list_database")
+  .select("total_tada")
+  .eq("ListId", listId);
+
+if (statsError) {
+  console.log("Stats error:", statsError);
+  return;
+}
+
+// 2. CALCULATE VALUES
+const svrCount = stats.length;
+
+const totalTADA = stats.reduce((sum, item) => {
+  return sum + (item.total_tada || 0);
+}, 0);
+
+// 3. UPDATE MAIN TABLE
+const { error: updateError } = await supabaseClient
+  .from("svr_list")
+  .update({
+    SVRCount: svrCount,
+    TotalTADA: totalTADA
+  })
+  .eq("ListId", listId);
+
+if (updateError) {
+  console.log("Update error:", updateError);
+}
+  
 }
 
 
