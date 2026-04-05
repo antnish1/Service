@@ -40,6 +40,18 @@ async function openBranch(branchName) {
 
   const datePrefix = `${day}${month}${year}`;
 
+
+  // 🔥 LOADER START
+  document.getElementById("loader").style.display = "flex";
+  document.querySelectorAll("button").forEach(btn => {
+    btn.disabled = true;
+    btn.style.opacity = "0.6";
+  });
+
+
+
+
+  
   // 🔍 COUNT EXISTING LISTS TODAY
   const { data: existingLists, error: countError } = await supabaseClient
     .from("svr_list")
