@@ -104,105 +104,88 @@ const isAlreadyAdded = currentKey && existingKeys.includes(currentKey);
 
 async function addToSVRList(row, trElement) {
 
-  const SUPABASE_URL = "https://gmutgbdldiqbwomtdepi.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_e-gFkBqs2qG2bSs1iBJPrQ_m3PZf5lN";
-
-
-
   const listId = localStorage.getItem("currentListId");
 
-// 🔥 ASK FOR SVR NUMBER
-const svrNumber = prompt("Enter SVR Number:");
+  // 🔥 ASK FOR SVR NUMBER
+  const svrNumber = prompt("Enter SVR Number:");
 
-if (!svrNumber || svrNumber.trim() === "") {
-  alert("SVR Number is required");
-  return;
-}
-  
+  if (!svrNumber || svrNumber.trim() === "") {
+    alert("SVR Number is required");
+    return;
+  }
 
+  // 🔥 CLEAN UNIQUE KEY
+  const cleanKey = row.unique_key ? String(row.unique_key).trim() : null;
 
+  if (!cleanKey) {
+    alert("Invalid unique_key");
+    return;
+  }
 
-  
-const cleanKey = row.unique_key ? String(row.unique_key).trim() : null;
+  // 🔥 DUPLICATE CHECK (GLOBAL)
+  const { data: existing, error: checkError } = await supabaseClient
+    .from("svr_list_database")
+    .select("id")
+    .eq("unique_key", cleanKey);
 
-if (!cleanKey) {
-  alert("Invalid unique_key");
-  return;
-}
+  if (checkError) {
+    console.log("Duplicate check error:", checkError);
+    return;
+  }
 
-const { data: existing } = await supabaseClient
-  .from("svr_list_database")
-  .select("id")
-  .eq("unique_key", cleanKey);
-
-if (existing.length > 0) {
-  alert("Already added to list");
-  return;
-}
-
-if (!cleanKey) {
-  alert("Invalid unique_key");
-  return;
-}
-
-const { data: existing } = await supabaseClient
-  .from("svr_list_database")
-  .select("id")
-  .eq("unique_key", cleanKey);
-
-if (existing.length > 0) {
-  alert("Already added to list");
-  return;
-}
-  
+  if (existing.length > 0) {
+    alert("Already added to list");
+    return;
+  }
 
   // 🚫 PREVENT DOUBLE CLICK
   trElement.style.opacity = "0.5";
   trElement.style.pointerEvents = "none";
 
-  // 🔥 INSERT INTO NEW TABLE
+  // 🔥 INSERT INTO TABLE
   const { error } = await supabaseClient
     .from("svr_list_database")
-.insert([
-  {
-    "ListId": listId,
-"SVRnummber": svrNumber,
-    "ListCreationDate": new Date().toISOString().split('T')[0],
-unique_key: cleanKey,
-    call_id: row.call_id,
-    location: row.location,
-    engineer_name: row.engineer_name,
-    workshop_onsite: row.workshop_onsite,
-    call_type: row.call_type,
-    primary_secondary_engineer: row.primary_secondary_engineer,
-    complaint: row.complaint,
-    customer_name: row.customer_name,
-    contact_number: row.contact_number,
-    machine_no: row.machine_no,
-    hmr: row.hmr,
-    breakdown_status: row.breakdown_status,
-    mc_model: row.mc_model,
-    installation_date: row.installation_date || null,
-    site_location: row.site_location,
-    deputation_date: row.deputation_date || null,
-deputation_time: formatTime(row.deputation_time),
-engineer_onsite_time: formatTime(row.engineer_onsite_time),
-work_completion_time: formatTime(row.work_completion_time),
+    .insert([
+      {
+        "ListId": listId,
+        "SVRnummber": svrNumber,
+        "ListCreationDate": new Date().toISOString().split('T')[0],
 
-    labour_charge: row.labour_charge || 0,
-    distance: row.distance || 0,
-    da_applied: row.da_applied,
-    ta_amt_approved: row.ta_amt_approved || 0,
-    da_amt_approved: row.da_amt_approved || 0,
-    total_tada: row.total_tada || 0,
-    date: row.date || null
-  }
-]);
+        unique_key: cleanKey,
+        call_id: row.call_id,
+        location: row.location,
+        engineer_name: row.engineer_name,
+        workshop_onsite: row.workshop_onsite,
+        call_type: row.call_type,
+        primary_secondary_engineer: row.primary_secondary_engineer,
+        complaint: row.complaint,
+        customer_name: row.customer_name,
+        contact_number: row.contact_number,
+        machine_no: row.machine_no,
+        hmr: row.hmr,
+        breakdown_status: row.breakdown_status,
+        mc_model: row.mc_model,
+        installation_date: row.installation_date || null,
+        site_location: row.site_location,
+        deputation_date: row.deputation_date || null,
+        deputation_time: formatTime(row.deputation_time),
+        engineer_onsite_time: formatTime(row.engineer_onsite_time),
+        work_completion_time: formatTime(row.work_completion_time),
+
+        labour_charge: row.labour_charge || 0,
+        distance: row.distance || 0,
+        da_applied: row.da_applied,
+        ta_amt_approved: row.ta_amt_approved || 0,
+        da_amt_approved: row.da_amt_approved || 0,
+        total_tada: row.total_tada || 0,
+        date: row.date || null
+      }
+    ]);
 
   if (error) {
     console.log("Insert error FULL:", JSON.stringify(error, null, 2));
 
-    // restore if failed
+    // restore UI if failed
     trElement.style.opacity = "1";
     trElement.style.pointerEvents = "auto";
     return;
@@ -211,42 +194,36 @@ work_completion_time: formatTime(row.work_completion_time),
   // ✅ SUCCESS UI
   trElement.style.background = "#d4edda";
 
-// 🔥 UPDATE SVR LIST STATS
+  // 🔥 UPDATE SVR LIST STATS
 
-// 1. GET COUNT + SUM
-const { data: stats, error: statsError } = await supabaseClient
-  .from("svr_list_database")
-  .select("total_tada")
-  .eq("ListId", listId);
+  const { data: stats, error: statsError } = await supabaseClient
+    .from("svr_list_database")
+    .select("total_tada")
+    .eq("ListId", listId);
 
-if (statsError) {
-  console.log("Stats error:", statsError);
-  return;
+  if (statsError) {
+    console.log("Stats error:", statsError);
+    return;
+  }
+
+  const svrCount = stats.length;
+
+  const totalTADA = stats.reduce((sum, item) => {
+    return sum + (item.total_tada || 0);
+  }, 0);
+
+  const { error: updateError } = await supabaseClient
+    .from("svr_list")
+    .update({
+      SVRCount: svrCount,
+      TotalTADA: totalTADA
+    })
+    .eq("ListId", listId);
+
+  if (updateError) {
+    console.log("Update error:", updateError);
+  }
 }
-
-// 2. CALCULATE VALUES
-const svrCount = stats.length;
-
-const totalTADA = stats.reduce((sum, item) => {
-  return sum + (item.total_tada || 0);
-}, 0);
-
-// 3. UPDATE MAIN TABLE
-const { error: updateError } = await supabaseClient
-  .from("svr_list")
-  .update({
-    SVRCount: svrCount,
-    TotalTADA: totalTADA
-  })
-  .eq("ListId", listId);
-
-if (updateError) {
-  console.log("Update error:", updateError);
-}
-  
-}
-
-
 // BACK BUTTON
 function goBack() {
   window.location.href = "dashboard.html";
