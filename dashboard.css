@@ -178,3 +178,15 @@ body {
 #branchContainer button:hover {
   background: #5a7a70;
 }
+
+
+
+
+.table thead {
+  background: #4f6f64;
+  color: white;
+}
+
+.table th {
+  font-weight: 500;
+}
