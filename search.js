@@ -43,8 +43,9 @@ async function displayResults(rows) {
 
   // 🔥 FETCH ALL EXISTING KEYS ONCE (FAST)
   const { data: existingItems, error } = await supabaseClient
-    .from("svr_list_database")
-    .select("unique_key");
+.from("svr_list_database")
+.select("unique_key")
+.limit(10000);
 
   if (error) {
     console.log("Existing fetch error:", error);
