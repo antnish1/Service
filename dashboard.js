@@ -101,3 +101,51 @@ function openBranchModal() {
 function closeModal() {
   document.getElementById("branchModal").style.display = "none";
 }
+
+
+async function loadLists() {
+
+  const SUPABASE_URL = "https://gmutgbdldiqbwomtdepi.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_e-gFkBqs2qG2bSs1iBJPrQ_m3PZf5lN";
+
+  const { createClient } = window.supabase;
+  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const { data, error } = await supabaseClient
+    .from("svr_list")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  const tbody = document.getElementById("listTableBody");
+  tbody.innerHTML = "";
+
+  data.forEach(row => {
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${row.ListId}</td>
+      <td>${row.Location}</td>
+      <td>${row.Status}</td>
+      <td>${formatDate(row.created_at)}</td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+}
+
+
+
+function formatDate(dateString) {
+  const d = new Date(dateString);
+
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const year = String(d.getFullYear()).slice(-2);
+
+  return `${day}-${month}-${year}`;
+}
