@@ -6,7 +6,7 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // Show selected branch
 const branch = localStorage.getItem("selectedBranch");
-document.getElementById("branchTitle").innerText = "Branch: " + branch;
+document.getElementById("branchTitle").innerText = branch;
 
 // 🔥 THIS WAS MISSING (MAIN FUNCTION)
 async function searchMachine() {
@@ -54,6 +54,25 @@ function displayResults(rows) {
     tbody.appendChild(tr);
   });
 }
+
+
+// BACK BUTTON
+function goBack() {
+  window.location.href = "dashboard.html";
+}
+
+// LOGOUT
+function logout() {
+  localStorage.removeItem("user");
+  window.location.href = "index.html";
+}
+
+// ENTER KEY SEARCH
+document.getElementById("machineInput").addEventListener("keypress", function(e) {
+  if (e.key === "Enter") {
+    searchMachine();
+  }
+});
 
 
 // 🔥 ENTER KEY SEARCH
