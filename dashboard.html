@@ -17,7 +17,7 @@
 
     <ul>
       
-      <li onclick="toggleBranches()">➕ New List</li>
+     <li onclick="openBranchModal()">➕ New List</li>
 
 
 
@@ -110,5 +110,29 @@
 </div>
 
 <script src="dashboard.js"></script>
+
+
+
+<!-- BRANCH MODAL -->
+<div id="branchModal" class="modal">
+  <div class="modal-content">
+    <h3>Select Branch</h3>
+
+    <div class="branch-grid">
+      <button onclick="openBranch('DAMOH')">DAMOH</button>
+      <button onclick="openBranch('DINDORI')">DINDORI</button>
+      <button onclick="openBranch('ANUPPUR')">ANUPPUR</button>
+      <button onclick="openBranch('MANDLA')">MANDLA</button>
+      <button onclick="openBranch('NARSINGHPUR')">NARSINGHPUR</button>
+      <button onclick="openBranch('KATNI')">KATNI</button>
+      <button onclick="openBranch('SEONI')">SEONI</button>
+      <button onclick="openBranch('BALAGHAT')">BALAGHAT</button>
+      <button onclick="openBranch('JABALPUR')">JABALPUR</button>
+    </div>
+
+    <button onclick="closeModal()" class="close-btn">Close</button>
+  </div>
+</div>
+  
 </body>
 </html>
