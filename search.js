@@ -36,9 +36,25 @@ async function searchMachine() {
 }
 
 // Existing function (you already had)
-function displayResults(rows) {
+async function displayResults(rows) {
+
   const tbody = document.querySelector("#resultTable tbody");
   tbody.innerHTML = "";
+
+  const listId = localStorage.getItem("currentListId");
+
+  // 🔥 GET EXISTING ROWS FOR THIS LIST
+  const { data: existingItems, error } = await supabaseClient
+    .from("svr_list_database")
+    .select("unique_key")
+    .eq("ListId", listId);
+
+  if (error) {
+    console.log("Existing fetch error:", error);
+    return;
+  }
+
+  const existingKeys = existingItems.map(item => item.unique_key);
 
   rows.forEach(row => {
     const tr = document.createElement("tr");
@@ -60,17 +76,27 @@ function displayResults(rows) {
       <td>${row.total_tada || ""}</td>
     `;
 
-    // 🔥 CLICK EVENT
-    tr.style.cursor = "pointer";
+    // 🔥 CHECK IF ALREADY ADDED
+    const isAlreadyAdded = existingKeys.includes(row.unique_key);
 
-    tr.addEventListener("click", () => {
-      addToSVRList(row, tr);
-    });
+    if (isAlreadyAdded) {
+      // 🔴 FADED + PINK
+      tr.style.background = "#ffe6e6";
+      tr.style.opacity = "0.6";
+      tr.style.pointerEvents = "none";
+      tr.title = "Already added to list";
+    } else {
+      // 🟢 NORMAL CLICK
+      tr.style.cursor = "pointer";
+
+      tr.addEventListener("click", () => {
+        addToSVRList(row, tr);
+      });
+    }
 
     tbody.appendChild(tr);
   });
 }
-
 
 async function addToSVRList(row, trElement) {
 
