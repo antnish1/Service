@@ -22,3 +22,9 @@ function logout() {
   localStorage.removeItem("user");
   window.location.href = "index.html";
 }
+
+
+function openBranch(branchName) {
+  localStorage.setItem("selectedBranch", branchName);
+  window.location.href = "search.html";
+}
