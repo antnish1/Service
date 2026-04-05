@@ -56,7 +56,7 @@ const { data: existingItems, error } = await supabaseClient
  const existingKeys = existingItems
   .map(item => item.unique_key)
   .filter(k => k !== null && k !== undefined)
-  .map(k => String(k).trim());
+.map(k => String(k).trim().toLowerCase());
 
   rows.forEach(row => {
     const tr = document.createElement("tr");
@@ -114,13 +114,7 @@ async function addToSVRList(row, trElement) {
     return;
   }
 
-  // 🔥 CLEAN UNIQUE KEY
-  const cleanKey = row.unique_key ? String(row.unique_key).trim() : null;
 
-  if (!cleanKey) {
-    alert("Invalid unique_key");
-    return;
-  }
 
   // 🔥 DUPLICATE CHECK (GLOBAL)
   const { data: existing, error: checkError } = await supabaseClient
