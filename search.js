@@ -83,6 +83,13 @@ async function addToSVRList(row, trElement) {
   const listId = localStorage.getItem("currentListId");
 
 
+if (!row.unique_key) {
+  alert("Invalid data: unique_key missing");
+  return;
+}
+
+
+  
 const { data: existing } = await supabaseClient
   .from("svr_list_database")
   .select("id")
