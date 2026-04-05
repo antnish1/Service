@@ -56,7 +56,7 @@ const { data: existingItems, error } = await supabaseClient
  const existingKeys = existingItems
   .map(item => item.unique_key)
   .filter(k => k !== null && k !== undefined)
-.map(k => String(k).trim().toLowerCase());
+.map(k => k);
 
   rows.forEach(row => {
     const tr = document.createElement("tr");
@@ -79,7 +79,7 @@ const { data: existingItems, error } = await supabaseClient
     `;
 
     // 🔥 CHECK IF ALREADY ADDED
-const currentKey = generateKey(row);
+const currentKey = row.unique_key;
 
 const isAlreadyAdded = currentKey && existingKeys.includes(currentKey);
 
@@ -120,7 +120,7 @@ async function addToSVRList(row, trElement) {
   const { data: existing, error: checkError } = await supabaseClient
     .from("svr_list_database")
     .select("id")
- .eq("unique_key", generateKey(row));
+.eq("unique_key", row.unique_key);
 
   if (checkError) {
     console.log("Duplicate check error:", checkError);
@@ -145,7 +145,7 @@ async function addToSVRList(row, trElement) {
         "SVRnummber": svrNumber,
         "ListCreationDate": new Date().toISOString().split('T')[0],
 
-   unique_key: generateKey(row),
+unique_key: row.unique_key,
         call_id: row.call_id,
         location: row.location,
         engineer_name: row.engineer_name,
@@ -256,16 +256,7 @@ function formatTime(value) {
 }
 
 
-function generateKey(row) {
-  return [
-    row.machine_no,
-    row.date,
-    row.engineer_name,
-    row.complaint
-  ]
-    .map(v => String(v || "").trim().toLowerCase())
-    .join("|");
-}
+
 
 // 🔥 ENTER KEY SEARCH
 document.getElementById("machineInput").addEventListener("keypress", function(e) {
