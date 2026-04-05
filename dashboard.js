@@ -31,13 +31,3 @@ function openBranch(branchName) {
 
 
 
-
-function toggleBranches() {
-  const container = document.getElementById("branchContainer");
-
-  if (container.style.display === "none") {
-    container.style.display = "block";
-  } else {
-    container.style.display = "none";
-  }
-}
