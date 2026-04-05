@@ -28,3 +28,16 @@ function openBranch(branchName) {
   localStorage.setItem("selectedBranch", branchName);
   window.location.href = "search.html";
 }
+
+
+
+
+function toggleBranches() {
+  const container = document.getElementById("branchContainer");
+
+  if (container.style.display === "none") {
+    container.style.display = "block";
+  } else {
+    container.style.display = "none";
+  }
+}
