@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TA DA PORTAL</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="login-container">
+
+  <div class="login-card">
+
+    <h1>TA DA PORTAL</h1>
+    <p class="subtitle">Travel & Allowance Management</p>
+
+    <form id="loginForm">
+
+      <label>User</label>
+      <select id="username" required>
+        <option value="">Select User</option>
+        <option value="Nishant">Nishant</option>
+        <option value="Ankita">Ankita</option>
+        <option value="Ashish">Ashish</option>
+        <option value="Shweta">Shweta</option>
+      </select>
+
+      <label>Password</label>
+      <input type="password" id="password" placeholder="Enter Password" required />
+
+      <button type="submit">Login</button>
+
+      <p id="errorMsg"></p>
+    </form>
+
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
