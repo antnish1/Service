@@ -79,6 +79,7 @@ async function openBranch(branchName) {
 
   if (insertError) {
     console.log(insertError);
+    document.getElementById("loader").style.display = "none";
     return;
   }
 
@@ -139,7 +140,6 @@ async function loadLists() {
 }
 
 
-
 function formatDate(dateString) {
   const d = new Date(dateString);
 
@@ -149,3 +149,6 @@ function formatDate(dateString) {
 
   return `${day}-${month}-${year}`;
 }
+
+
+loadLists();
