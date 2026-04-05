@@ -82,6 +82,14 @@ async function addToSVRList(row, trElement) {
 
   const listId = localStorage.getItem("currentListId");
 
+// 🔥 ASK FOR SVR NUMBER
+const svrNumber = prompt("Enter SVR Number:");
+
+if (!svrNumber || svrNumber.trim() === "") {
+  alert("SVR Number is required");
+  return;
+}
+  
 
 if (!row.unique_key) {
   alert("Invalid data: unique_key missing");
@@ -112,7 +120,7 @@ if (existing.length > 0) {
 .insert([
   {
     "ListId": listId,
-
+"SVRnummber": svrNumber,
     unique_key: row.unique_key,
     call_id: row.call_id,
     location: row.location,
