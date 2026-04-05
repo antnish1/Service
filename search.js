@@ -44,10 +44,9 @@ async function displayResults(rows) {
   const listId = localStorage.getItem("currentListId");
 
   // 🔥 GET EXISTING ROWS FOR THIS LIST
-  const { data: existingItems, error } = await supabaseClient
-    .from("svr_list_database")
-    .select("unique_key")
-    .eq("ListId", listId);
+const { data: existingItems, error } = await supabaseClient
+  .from("svr_list_database")
+  .select("unique_key");
 
   if (error) {
     console.log("Existing fetch error:", error);
@@ -126,7 +125,7 @@ if (!row.unique_key) {
 const { data: existing } = await supabaseClient
   .from("svr_list_database")
   .select("id")
-  .eq("ListId", listId)
+
   .eq("unique_key", String(row.unique_key));
 
 if (existing.length > 0) {
