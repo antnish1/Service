@@ -71,9 +71,11 @@ function logout() {
 
 
 async function deleteRow(id) {
+
   const confirmDelete = confirm("Delete this row?");
   if (!confirmDelete) return;
 
+  // 🔥 DELETE ROW
   const { error } = await supabaseClient
     .from("svr_list_database")
     .delete()
@@ -84,7 +86,38 @@ async function deleteRow(id) {
     return;
   }
 
-  loadListDetails(); // refresh
+  // 🔥 RECALCULATE STATS AFTER DELETE
+  const { data: stats, error: statsError } = await supabaseClient
+    .from("svr_list_database")
+    .select("total_tada")
+    .eq("ListId", listId);
+
+  if (statsError) {
+    console.log("Stats error:", statsError);
+    return;
+  }
+
+  const svrCount = stats.length;
+
+  const totalTADA = stats.reduce((sum, item) => {
+    return sum + (item.total_tada || 0);
+  }, 0);
+
+  // 🔥 UPDATE MAIN TABLE
+  const { error: updateError } = await supabaseClient
+    .from("svr_list")
+    .update({
+      SVRCount: svrCount,
+      TotalTADA: totalTADA
+    })
+    .eq("ListId", listId);
+
+  if (updateError) {
+    console.log("Update error:", updateError);
+  }
+
+  // 🔄 REFRESH UI
+  loadListDetails();
 }
 
 
