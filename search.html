@@ -6,13 +6,50 @@
 </head>
 <body>
 
-<div class="main">
-  <h2 id="branchTitle"></h2>
+<div class="dashboard">
 
-  <input id="machineInput" placeholder="Enter Machine Number">
-  <button onclick="searchMachine()">Search</button>
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>TA DA</h2>
+  </div>
 
-  <div id="results"></div>
+  <!-- MAIN -->
+  <div class="main">
+
+    <div class="topbar">
+      <input id="machineInput" placeholder="Enter Machine Number">
+      <button onclick="searchMachine()">Search</button>
+    </div>
+
+    <h3 id="branchTitle"></h3>
+
+    <div class="table">
+      <table id="resultTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Engineer</th>
+            <th>Workshop/Onsite</th>
+            <th>Call Type</th>
+            <th>Complaint</th>
+            <th>Customer</th>
+            <th>Machine No</th>
+            <th>HMR</th>
+            <th>Status</th>
+            <th>Site</th>
+            <th>Call ID</th>
+            <th>Labour</th>
+            <th>Distance</th>
+            <th>Total TA/DA</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+  </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
