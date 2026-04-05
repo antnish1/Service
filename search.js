@@ -34,8 +34,8 @@ function displayResults(rows) {
     const tr = document.createElement("tr");
 
     tr.innerHTML = `
-      <td>${row.date || ""}</td>
-      <td>${row.location || ""}</td>
+     <td>${formatDate(row.date)}</td>
+   
       <td>${row.engineer_name || ""}</td>
       <td>${row.workshop_onsite || ""}</td>
       <td>${row.call_type || ""}</td>
@@ -67,12 +67,16 @@ function logout() {
   window.location.href = "index.html";
 }
 
-// ENTER KEY SEARCH
-document.getElementById("machineInput").addEventListener("keypress", function(e) {
-  if (e.key === "Enter") {
-    searchMachine();
-  }
-});
+function formatDate(dateString) {
+  if (!dateString) return "";
+
+  const d = new Date(dateString);
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const year = String(d.getFullYear()).slice(-2);
+
+  return `${day}-${month}-${year}`;
+}
 
 
 // 🔥 ENTER KEY SEARCH
