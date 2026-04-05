@@ -16,11 +16,30 @@
     <h2>TA DA</h2>
 
     <ul>
-      <li onclick="showSection('search')">🔍 Search</li>
-      <li onclick="showSection('new')">➕ New List</li>
+      
+      <li onclick="toggleBranches()">➕ New List</li>
       <li onclick="showSection('reports')">📊 Reports</li>
-      <li onclick="logout()">🚪 Logout</li>
+
     </ul>
+
+
+<div id="branchContainer" style="display:none; margin-top:10px;">
+  <button onclick="openBranch('DAMOH')">DAMOH</button>
+  <button onclick="openBranch('DINDORI')">DINDORI</button>
+  <button onclick="openBranch('ANUPPUR')">ANUPPUR</button>
+  <button onclick="openBranch('MANDLA')">MANDLA</button>
+  <button onclick="openBranch('NARSINGHPUR')">NARSINGHPUR</button>
+  <button onclick="openBranch('KATNI')">KATNI</button>
+  <button onclick="openBranch('SEONI')">SEONI</button>
+  <button onclick="openBranch('BALAGHAT')">BALAGHAT</button>
+  <button onclick="openBranch('JABALPUR')">JABALPUR</button>
+</div>
+
+<div style="position:absolute; bottom:20px; width:180px;">
+  <li onclick="logout()">🚪 Logout</li>
+</div>
+
+    
   </div>
 
   <!-- MAIN -->
@@ -50,22 +69,7 @@
 
 
 
-<!-- NEW LIST - BRANCHES -->
-<div class="branch-section">
-  <h2>Select Branch</h2>
 
-  <div class="branch-list">
-    <button onclick="openBranch('DAMOH')">DAMOH</button>
-    <button onclick="openBranch('DINDORI')">DINDORI</button>
-    <button onclick="openBranch('ANUPPUR')">ANUPPUR</button>
-    <button onclick="openBranch('MANDLA')">MANDLA</button>
-    <button onclick="openBranch('NARSINGHPUR')">NARSINGHPUR</button>
-    <button onclick="openBranch('KATNI')">KATNI</button>
-    <button onclick="openBranch('SEONI')">SEONI</button>
-    <button onclick="openBranch('BALAGHAT')">BALAGHAT</button>
-    <button onclick="openBranch('JABALPUR')">JABALPUR</button>
-  </div>
-</div>
 
     
     <!-- TABLE -->
