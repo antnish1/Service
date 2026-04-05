@@ -130,12 +130,15 @@ async function loadLists() {
   data.forEach(row => {
     const tr = document.createElement("tr");
 
-    tr.innerHTML = `
-      <td>${row.ListId}</td>
-      <td>${row.Location}</td>
-      <td>${row.Status}</td>
-      <td>${formatDate(row.created_at)}</td>
-    `;
+  tr.innerHTML = `
+  <td>${row.ListId}</td>
+  <td>${row.Location}</td>
+  <td>${row.Status}</td>
+  <td>${row.SVRCount || 0}</td>
+  <td>${row.TotalTADA || 0}</td>
+  <td>${row.PassedTADA || 0}</td>
+  <td>${formatDate(row.created_at)}</td>
+`;
 
     tbody.appendChild(tr);
   });
