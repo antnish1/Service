@@ -74,19 +74,23 @@
 
 <div class="main">
 
-  <!-- HEADER -->
-  <div class="page-header">
-    <div id="branchTitle" class="branch-title"></div>
+<div class="main">
 
-    <div class="header-actions">
+  <!-- HEADER -->
+  <div class="topbar">
+    <div style="display:flex; align-items:center; gap:15px;">
+      <strong id="branchTitle" style="font-size:16px; color:#4f6f64;"></strong>
+      <span id="usernameDisplay"></span>
+    </div>
+
+    <div style="display:flex; gap:10px;">
       <button class="btn" onclick="goBack()">⬅ Back</button>
       <button class="btn" onclick="logout()">Logout</button>
     </div>
   </div>
-
   <!-- SEARCH -->
   <div class="search-bar">
-    <input id="machineInput" placeholder="Enter Machine Number">
+    <input id="machineInput" placeholder="Machine No" maxlength="7" style="width:180px;">
     <button class="btn" onclick="searchMachine()">Search</button>
   </div>
 
@@ -96,7 +100,7 @@
       <thead>
         <tr>
           <th>Date</th>
-          <th>Location</th>
+          
           <th>Engineer</th>
           <th>Workshop/Onsite</th>
           <th>Call Type</th>
