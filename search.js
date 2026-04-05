@@ -1,3 +1,31 @@
+const SUPABASE_URL = "https://gmutgbdldiqbwomtdepi.supabase.co";
+const SUPABASE_KEY = "sb_publishable_e-gFkBqs2qG2bSs1iBJPrQ_m3PZf5lN";
+
+const { createClient } = window.supabase;
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Show selected branch
+const branch = localStorage.getItem("selectedBranch");
+document.getElementById("branchTitle").innerText = "Branch: " + branch;
+
+// 🔥 THIS WAS MISSING (MAIN FUNCTION)
+async function searchMachine() {
+  const machineNo = document.getElementById("machineInput").value;
+
+  const { data, error } = await supabaseClient
+    .from("consolidation")
+    .select("*")
+    .eq("machine_no", machineNo);
+
+  if (error) {
+    console.log("Error:", error);
+    return;
+  }
+
+  displayResults(data);
+}
+
+// Existing function (you already had)
 function displayResults(rows) {
   const tbody = document.querySelector("#resultTable tbody");
   tbody.innerHTML = "";
