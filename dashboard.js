@@ -25,6 +25,7 @@ function logout() {
 
 
 async function openBranch(branchName) {
+  closeModal();
   const SUPABASE_URL = "https://gmutgbdldiqbwomtdepi.supabase.co";
   const SUPABASE_KEY = "sb_publishable_e-gFkBqs2qG2bSs1iBJPrQ_m3PZf5lN";
 
@@ -89,6 +90,7 @@ async function openBranch(branchName) {
   localStorage.setItem("currentStatus", "Open");
 
   // 🚀 GO TO SEARCH PAGE
+  document.getElementById("loader").style.display = "none";
   window.location.href = "search.html";
 }
 
