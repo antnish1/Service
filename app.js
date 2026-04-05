@@ -10,6 +10,31 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 const form = document.getElementById("loginForm");
 const errorMsg = document.getElementById("errorMsg");
 
+// Load users into dropdown
+async function loadUsers() {
+  const { data, error } = await supabaseClient
+    .from("users")
+    .select("name");
+
+  if (error) {
+    console.log("Error loading users:", error);
+    return;
+  }
+
+  const dropdown = document.getElementById("username");
+
+  data.forEach(user => {
+    const option = document.createElement("option");
+    option.value = user.name;
+    option.textContent = user.name;
+    dropdown.appendChild(option);
+  });
+}
+
+// Call function on page load
+loadUsers();
+
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
