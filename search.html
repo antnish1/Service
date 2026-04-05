@@ -10,11 +10,42 @@
       font-size: 14px;
     }
 
-    .search-container {
-      max-width: 900px;
-      margin: auto;
+    /* TOP BAR */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
     }
 
+    .branch-title {
+      background: #4f6f64;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 8px;
+      background: #4f6f64;
+      color: white;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .btn:hover {
+      background: #3d5a50;
+    }
+
+    /* SEARCH BAR */
     .search-bar {
       display: flex;
       gap: 10px;
@@ -26,34 +57,14 @@
       padding: 10px;
       border-radius: 8px;
       border: 1px solid #ddd;
-      font-size: 14px;
     }
 
-    .search-bar button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      background: #4f6f64;
-      color: white;
-      cursor: pointer;
-      font-size: 14px;
+    /* FULL WIDTH */
+    .main {
+      width: 100%;
     }
 
-    .search-bar button:hover {
-      background: #3d5a50;
-    }
-
-    h3 {
-      font-size: 16px;
-      margin-bottom: 15px;
-      color: #444;
-    }
-
-    table th {
-      font-size: 13px;
-    }
-
-    table td {
+    table th, table td {
       font-size: 13px;
     }
   </style>
@@ -61,15 +72,25 @@
 
 <body>
 
-<div class="main search-container">
+<div class="main">
 
-  <h3 id="branchTitle"></h3>
+  <!-- HEADER -->
+  <div class="page-header">
+    <div id="branchTitle" class="branch-title"></div>
 
-  <div class="search-bar">
-    <input id="machineInput" placeholder="Enter Machine Number">
-    <button onclick="searchMachine()">Search</button>
+    <div class="header-actions">
+      <button class="btn" onclick="goBack()">⬅ Back</button>
+      <button class="btn" onclick="logout()">Logout</button>
+    </div>
   </div>
 
+  <!-- SEARCH -->
+  <div class="search-bar">
+    <input id="machineInput" placeholder="Enter Machine Number">
+    <button class="btn" onclick="searchMachine()">Search</button>
+  </div>
+
+  <!-- TABLE -->
   <div class="table">
     <table id="resultTable">
       <thead>
