@@ -30,4 +30,12 @@ function openBranch(branchName) {
 }
 
 
+// OPEN MODAL
+function openBranchModal() {
+  document.getElementById("branchModal").style.display = "flex";
+}
 
+// CLOSE MODAL
+function closeModal() {
+  document.getElementById("branchModal").style.display = "none";
+}
