@@ -1,6 +1,7 @@
 // Load user info
 
 let currentFilter = "all";
+let currentSearch = "";
 const user = JSON.parse(localStorage.getItem("user"));
 
 if (!user) {
