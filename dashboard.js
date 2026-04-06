@@ -305,5 +305,20 @@ function applyFilter(filter, element) {
   loadLists();
 }
 
+document.addEventListener("DOMContentLoaded", () => {
 
-loadLists();
+  // ✅ set default filter
+  currentFilter = "pending";
+
+  // 🔥 find pending card
+  const pendingCard = document.querySelector(
+    ".mini.highlight[onclick*='pending']"
+  );
+
+  if (pendingCard) {
+    pendingCard.classList.add("active-card");
+  }
+
+  // 🔄 load filtered data
+  loadLists();
+});
