@@ -1,4 +1,6 @@
 // Load user info
+
+let currentFilter = "all";
 const user = JSON.parse(localStorage.getItem("user"));
 
 if (!user) {
@@ -127,7 +129,51 @@ async function loadLists() {
   const tbody = document.getElementById("listTableBody");
   tbody.innerHTML = "";
 
-  data.forEach(row => {
+data.forEach(row => {
+
+  const status = (row.Status || "").toLowerCase().trim();
+
+  let show = false;
+
+  switch (currentFilter) {
+
+    case "open":
+      show = status === "open";
+      break;
+
+    case "closed":
+      show = status === "closed";
+      break;
+
+    case "verified":
+      show = status === "verified";
+      break;
+
+    case "pending":
+      show = ["open", "closed", "verified"].includes(status);
+      break;
+
+    case "unverified":
+      show = ["open", "closed"].includes(status);
+      break;
+
+    case "verified_claim":
+      show = ["verified", "passed"].includes(status);
+      break;
+
+    case "passed":
+      show = status === "passed";
+      break;
+
+    case "all":
+    default:
+      show = true;
+  }
+
+  // 🚫 SKIP ROW IF NOT MATCHING
+  if (!show) return;
+
+  // ✅ KEEP YOUR EXISTING CODE BELOW THIS
     const tr = document.createElement("tr");
 
   tr.innerHTML = `
