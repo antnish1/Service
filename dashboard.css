@@ -262,3 +262,86 @@ body {
   background: #ccc;
   cursor: pointer;
 }
+
+
+.card-section {
+  margin-bottom: 25px;
+}
+
+.card-section h3 {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* CARD BASE */
+.card {
+  flex: 1;
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* GLASS EFFECT */
+.card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255,255,255,0.08);
+  transform: rotate(25deg);
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+
+/* TEXT */
+.card h4 {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.card p {
+  font-size: 26px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* GRADIENTS */
+.gradient-green {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.gradient-red {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.gradient-blue {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.gradient-purple {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+.gradient-dark {
+  background: linear-gradient(135deg, #2c3e50, #1a252f);
+}
+
+.gradient-orange {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.gradient-teal {
+  background: linear-gradient(135deg, #1abc9c, #16a085);
+}
+
+.gradient-pink {
+  background: linear-gradient(135deg, #ff6b81, #e84393);
+}
