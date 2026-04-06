@@ -163,5 +163,61 @@ function formatDate(dateString) {
   return `${day}-${month}-${year}`;
 }
 
+async function loadDashboardStats() {
+
+  const SUPABASE_URL = "https://gmutgbdldiqbwomtdepi.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_e-gFkBqs2qG2bSs1iBJPrQ_m3PZf5lN";
+
+  const { createClient } = window.supabase;
+  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // 🔥 FETCH ALL LISTS
+  const { data: lists } = await supabaseClient
+    .from("svr_list")
+    .select("*");
+
+  let open = 0, closed = 0, verified = 0;
+
+  lists.forEach(l => {
+    if (l.Status === "Open") open++;
+    else if (l.Status === "Closed") closed++;
+    else if (l.Status === "Verified") verified++;
+  });
+
+  document.getElementById("openCount").innerText = open;
+  document.getElementById("closedCount").innerText = closed;
+  document.getElementById("verifiedCount").innerText = verified;
+  document.getElementById("totalPending").innerText = open + closed + verified;
+
+  // 🔥 CLAIM DATA
+  let totalSVR = 0;
+  let unverified = 0;
+  let verifiedAmt = 0;
+  let passedAmt = 0;
+
+  lists.forEach(l => {
+    totalSVR += l.SVRCount || 0;
+
+    if (l.Status === "Open") {
+      unverified += l.TotalTADA || 0;
+    }
+    if (l.Status === "Verified") {
+      verifiedAmt += l.TotalTADA || 0;
+    }
+    if (l.Status === "Passed") {
+      passedAmt += l.PassedTADA || 0;
+    }
+  });
+
+  document.getElementById("totalSVR").innerText = totalSVR;
+  document.getElementById("unverifiedAmt").innerText = "₹" + unverified;
+  document.getElementById("verifiedAmt").innerText = "₹" + verifiedAmt;
+  document.getElementById("passedAmt").innerText = "₹" + passedAmt;
+}
+
+// CALL IT
+loadDashboardStats();
+
+
 
 loadLists();
