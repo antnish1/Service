@@ -168,9 +168,27 @@ body {
   border-collapse: collapse;
 }
 
-.table th, .table td {
-  padding: 12px;
-  text-align: left;
+
+.table td {
+  font-size: 13px;
+  font-weight: 400; /* 🔥 normal, not bold */
+  color: #374151; /* dark gray instead of black */
+}
+
+
+.table th, 
+.table td {
+  padding: 14px 12px; /* more breathing space */
+}
+
+
+.table tbody tr:hover {
+  background: #f1f5f9;
+  transition: 0.2s;
+}
+
+.table tbody tr:nth-child(even) {
+  background: #fafafa;
 }
 
 .table tr {
@@ -245,15 +263,18 @@ body {
 
 
 
+/* TABLE HEADER */
 .table thead {
-  background: #4f6f64;
-  color: white;
+  background: #f8fafc; /* light instead of dark */
 }
 
 .table th {
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 500; /* 🔥 reduced from bold */
+  color: #6b7280; /* soft gray */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
-
 
 
 /* HEADER BAR IMPROVEMENT */
