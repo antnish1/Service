@@ -422,6 +422,7 @@ body {
   display: flex;
   gap: 15px;
   margin-bottom: 20px;
+  border-left: 4px solid #4f6f64;
 }
 
 .mega-card {
@@ -430,4 +431,52 @@ body {
   border-radius: 15px;
   padding: 15px 18px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+
+.mega-card h3 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.mini-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 items in one row */
+  gap: 10px;
+}
+
+.mini {
+  background: #f5f7f9;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  transition: 0.2s;
+}
+
+.mini span {
+  display: block;
+  font-size: 11px;
+  color: #777;
+}
+
+.mini strong {
+  font-size: 16px;
+  color: #333;
+}
+
+/* HIGHLIGHT IMPORTANT */
+.mini.highlight {
+  background: linear-gradient(135deg, #4f6f64, #3d5a50);
+  color: white;
+}
+
+.mini.highlight strong,
+.mini.highlight span {
+  color: white;
+}
+
+/* HOVER */
+.mini:hover {
+  transform: translateY(-2px);
 }
