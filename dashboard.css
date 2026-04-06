@@ -345,3 +345,8 @@ body {
 .gradient-pink {
   background: linear-gradient(135deg, #ff6b81, #e84393);
 }
+
+
+.dashboard {
+  display: block; /* REMOVE FLEX */
+}
