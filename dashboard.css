@@ -480,3 +480,15 @@ body {
 .mini:hover {
   transform: translateY(-2px);
 }
+
+
+.mini.active-card {
+  outline: 2px solid #4f6f64;
+  transform: scale(1.05);
+  background: #eaf3f1;
+}
+
+.mini.highlight.active-card {
+  background: linear-gradient(135deg, #4f6f64, #3d5a50);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
