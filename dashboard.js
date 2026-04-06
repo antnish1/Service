@@ -238,9 +238,26 @@ async function loadDashboardStats() {
   document.getElementById("passedAmt").innerText = "₹" + passedAmt;
 }
 
+
 // CALL IT
 loadDashboardStats();
 
+
+function applyFilter(filter, element) {
+
+  currentFilter = filter;
+
+  // 🔥 REMOVE ACTIVE FROM ALL
+  document.querySelectorAll(".mini").forEach(el => {
+    el.classList.remove("active-card");
+  });
+
+  // ✅ ADD ACTIVE
+  element.classList.add("active-card");
+
+  // 🔄 RELOAD TABLE
+  loadLists();
+}
 
 
 loadLists();
