@@ -171,46 +171,69 @@ async function loadDashboardStats() {
   const { createClient } = window.supabase;
   const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  // 🔥 FETCH ALL LISTS
-  const { data: lists } = await supabaseClient
+  const { data: lists, error } = await supabaseClient
     .from("svr_list")
     .select("*");
 
-  let open = 0, closed = 0, verified = 0;
+  if (error) {
+    console.log("Error:", error);
+    return;
+  }
 
+  // ✅ COUNTERS
+  let open = 0;
+  let closed = 0;
+  let verified = 0;
+
+  let totalSVR = 0;
+  let unverifiedAmt = 0;
+  let verifiedAmt = 0;
+  let passedAmt = 0;
+
+  // 🔥 LOOP THROUGH ALL LISTS
   lists.forEach(l => {
-    if (l.Status === "Open") open++;
-    else if (l.Status === "Closed") closed++;
-    else if (l.Status === "Verified") verified++;
+
+    const status = (l.Status || "").trim().toLowerCase();
+
+    const total = Number(l.TotalTADA) || 0;
+    const passed = Number(l.PassedTADA) || 0;
+    const svr = Number(l.SVRCount) || 0;
+
+    // ✅ LIST STATUS COUNT
+    if (status === "open") open++;
+    else if (status === "closed") closed++;
+    else if (status === "verified") verified++;
+
+    // ✅ TOTAL SVR
+    totalSVR += svr;
+
+    // ✅ CLAIM STATUS LOGIC
+
+    // 🔸 UNVERIFIED = OPEN + CLOSED
+    if (status === "open" || status === "closed") {
+      unverifiedAmt += total;
+    }
+
+    // 🔸 VERIFIED = VERIFIED + PASSED
+    if (status === "verified" || status === "passed") {
+      verifiedAmt += total;
+    }
+
+    // 🔸 PASSED ONLY
+    if (status === "passed") {
+      passedAmt += passed || total;
+    }
+
   });
 
+  // ✅ UPDATE UI
   document.getElementById("openCount").innerText = open;
   document.getElementById("closedCount").innerText = closed;
   document.getElementById("verifiedCount").innerText = verified;
   document.getElementById("totalPending").innerText = open + closed + verified;
 
-  // 🔥 CLAIM DATA
-  let totalSVR = 0;
-  let unverified = 0;
-  let verifiedAmt = 0;
-  let passedAmt = 0;
-
-  lists.forEach(l => {
-    totalSVR += l.SVRCount || 0;
-
-    if (l.Status === "Open") {
-      unverified += l.TotalTADA || 0;
-    }
-    if (l.Status === "Verified") {
-      verifiedAmt += l.TotalTADA || 0;
-    }
-    if (l.Status === "Passed") {
-      passedAmt += l.PassedTADA || 0;
-    }
-  });
-
   document.getElementById("totalSVR").innerText = totalSVR;
-  document.getElementById("unverifiedAmt").innerText = "₹" + unverified;
+  document.getElementById("unverifiedAmt").innerText = "₹" + unverifiedAmt;
   document.getElementById("verifiedAmt").innerText = "₹" + verifiedAmt;
   document.getElementById("passedAmt").innerText = "₹" + passedAmt;
 }
