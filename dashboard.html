@@ -27,9 +27,6 @@
 
     </ul>
 
-
-
-
 <div style="position:absolute; bottom:20px; width:180px;">
   <li onclick="logout()">🚪 Logout</li>
 </div>
@@ -46,22 +43,51 @@
       <span id="usernameDisplay"></span>
     </div>
 
-    <!-- CARDS -->
-    <div class="cards">
-      <div class="card">
-        <h3>Total Claims</h3>
-        <p>₹948</p>
-      </div>
-      <div class="card">
-        <h3>Pending</h3>
-        <p>₹145.50</p>
-      </div>
-      <div class="card">
-        <h3>Approved</h3>
-        <p>14</p>
-      </div>
+<!-- LIST STATUS CARDS -->
+<div class="card-section">
+  <h3>List Status</h3>
+  <div class="cards" id="listStatusCards">
+    <div class="card gradient-green">
+      <h4>Open</h4>
+      <p id="openCount">0</p>
     </div>
+    <div class="card gradient-red">
+      <h4>Closed</h4>
+      <p id="closedCount">0</p>
+    </div>
+    <div class="card gradient-blue">
+      <h4>Verified</h4>
+      <p id="verifiedCount">0</p>
+    </div>
+    <div class="card gradient-purple">
+      <h4>Total Pending</h4>
+      <p id="totalPending">0</p>
+    </div>
+  </div>
+</div>
 
+<!-- CLAIM STATUS CARDS -->
+<div class="card-section">
+  <h3>Claim Status</h3>
+  <div class="cards" id="claimStatusCards">
+    <div class="card gradient-dark">
+      <h4>Total SVRs</h4>
+      <p id="totalSVR">0</p>
+    </div>
+    <div class="card gradient-orange">
+      <h4>Unverified Amount</h4>
+      <p id="unverifiedAmt">₹0</p>
+    </div>
+    <div class="card gradient-teal">
+      <h4>Verified Amount</h4>
+      <p id="verifiedAmt">₹0</p>
+    </div>
+    <div class="card gradient-pink">
+      <h4>Passed Amount</h4>
+      <p id="passedAmt">₹0</p>
+    </div>
+  </div>
+</div>
 
 
 
