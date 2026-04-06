@@ -290,6 +290,12 @@ async function loadDashboardStats() {
 loadDashboardStats();
 
 
+function handleSearch(value) {
+  currentSearch = value.toLowerCase().trim();
+  loadLists(); // 🔥 reload table with search
+}
+
+
 function applyFilter(filter, element) {
 
   currentFilter = filter;
