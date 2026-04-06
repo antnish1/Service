@@ -134,6 +134,12 @@ data.forEach(row => {
 
   const status = (row.Status || "").toLowerCase().trim();
 
+  // 🔍 SEARCH MATCH (ALL FIELDS)
+  const searchMatch = !currentSearch || 
+    Object.values(row).some(val =>
+      String(val).toLowerCase().includes(currentSearch)
+    );
+
   let show = false;
 
   switch (currentFilter) {
@@ -171,9 +177,10 @@ data.forEach(row => {
       show = true;
   }
 
-  // 🚫 SKIP ROW IF NOT MATCHING
-  if (!show) return;
+  // ✅ FINAL CONDITION (FILTER + SEARCH)
+  if (!(show && searchMatch)) return;
 
+  // 👇 KEEP YOUR EXISTING CODE BELOW THIS
   // ✅ KEEP YOUR EXISTING CODE BELOW THIS
     const tr = document.createElement("tr");
 
