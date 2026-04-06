@@ -494,16 +494,7 @@ body {
   color: #222;
   margin-top: 3px;
 }
-/* HIGHLIGHT IMPORTANT */
-.mini.highlight {
-  background: linear-gradient(135deg, #4f6f64, #3d5a50);
-  color: white;
-}
 
-.mini.highlight strong,
-.mini.highlight span {
-  color: white;
-}
 
 /* HOVER */
 /* HOVER EFFECT */
