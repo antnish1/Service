@@ -339,13 +339,14 @@ body {
 /* CARD BASE */
 .card {
   flex: 1;
-  padding: 20px;
-  border-radius: 15px;
+  padding: 10px 14px; /* ⬅️ reduced from 20px */
+  border-radius: 12px;
   color: white;
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.25s;
+  min-height: 60px; /* ⬅️ force compact height */
 }
 
 /* GLASS EFFECT */
